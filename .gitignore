@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 backend/venv/
 venv/
 .venv/
@@ -5,3 +6,29 @@ node_modules/
 dist/
 .env
 *.log
+=======
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+>>>>>>> bd161c49909b67540aef0b0396d6ae9824850a61
