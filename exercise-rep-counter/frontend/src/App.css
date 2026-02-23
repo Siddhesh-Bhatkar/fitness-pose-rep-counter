@@ -1,0 +1,217 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   App.css — all visual styles for the rep counter
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Layout ─────────────────────────────────────────────────────────────────── */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+  background: #0d0d0d;
+  color: #fff;
+  font-family: 'DM Mono', 'Courier New', monospace;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  opacity: 0.5;
+  margin: 0 0 20px;
+}
+
+/* ── Exercise selector ───────────────────────────────────────────────────────── */
+.selector-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.exercise-btn {
+  padding: 9px 18px;
+  background: #1a1a1a;
+  color: #aaa;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.exercise-btn:hover {
+  border-color: #444;
+  color: #fff;
+}
+
+.exercise-btn.active {
+  background: #002a18;
+  color: #00ff88;
+  border-color: #00ff88;
+}
+
+/* ── Video container ─────────────────────────────────────────────────────────── */
+.video-container {
+  position: relative;
+  width: 640px;
+  max-width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #2a2a2a;
+  background: #111;
+  box-shadow: 0 0 40px rgba(0, 255, 136, 0.07);
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ── Stats overlay (bottom-left of video) ────────────────────────────────────── */
+.stats-overlay {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 12px 16px;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  opacity: 0.55;
+}
+
+.stat-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.stat-value.big {
+  font-size: 1.8rem;
+}
+
+.stat-value.accent {
+  color: #00ff88;
+}
+
+/* ── Start overlay (shown before camera starts) ──────────────────────────────── */
+.start-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.start-btn {
+  padding: 16px 36px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: #00ff88;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.4);
+  transition: opacity 0.15s;
+}
+
+.start-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Controls row ────────────────────────────────────────────────────────────── */
+.controls {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 10px 20px;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.btn:hover {
+  border-color: #555;
+}
+
+/* ── Hint text ───────────────────────────────────────────────────────────────── */
+.hint {
+  margin-top: 16px;
+  font-size: 0.78rem;
+  opacity: 0.4;
+  max-width: 500px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ── Error page ──────────────────────────────────────────────────────────────── */
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d0d0d;
+}
+
+.error-box {
+  background: #1a0808;
+  border: 1px solid #ff4444;
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 480px;
+  text-align: center;
+  color: #ff9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  line-height: 1.5;
+}
