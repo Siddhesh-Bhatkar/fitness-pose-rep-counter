@@ -1,4 +1,4 @@
-/* Global reset — remove Vite defaults that conflict with our dark theme */
+/* Global reset */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;

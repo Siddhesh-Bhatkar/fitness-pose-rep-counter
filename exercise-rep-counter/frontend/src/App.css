@@ -1,8 +1,8 @@
 /* ─────────────────────────────────────────────────────────────────────────────
-   App.css — all visual styles for the rep counter
+   App.css — all styles for the fitness rep counter
    ───────────────────────────────────────────────────────────────────────────── */
 
-/* ── Layout ─────────────────────────────────────────────────────────────────── */
+/* ── Layout ──────────────────────────────────────────────────────────────────── */
 .page {
   min-height: 100vh;
   display: flex;
@@ -14,10 +14,16 @@
   font-family: 'DM Mono', 'Courier New', monospace;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
 .title {
   font-size: 2rem;
   font-weight: 700;
-  margin: 0 0 4px;
   letter-spacing: -0.02em;
 }
 
@@ -46,18 +52,12 @@
   font-size: 0.85rem;
   font-family: inherit;
   transition: all 0.15s;
+  touch-action: manipulation;
+  min-height: 44px;
 }
 
-.exercise-btn:hover {
-  border-color: #444;
-  color: #fff;
-}
-
-.exercise-btn.active {
-  background: #002a18;
-  color: #00ff88;
-  border-color: #00ff88;
-}
+.exercise-btn:hover { border-color: #444; color: #fff; }
+.exercise-btn.active { background: #002a18; color: #00ff88; border-color: #00ff88; }
 
 /* ── Video container ─────────────────────────────────────────────────────────── */
 .video-container {
@@ -70,6 +70,7 @@
   border: 1px solid #2a2a2a;
   background: #111;
   box-shadow: 0 0 40px rgba(0, 255, 136, 0.07);
+  touch-action: pan-y;
 }
 
 .video {
@@ -78,15 +79,40 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.2s;
 }
 
 .canvas {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  transition: transform 0.2s;
 }
 
-/* ── Stats overlay (bottom-left of video) ────────────────────────────────────── */
+/* ── Form alert banner ───────────────────────────────────────────────────────── */
+.form-alert {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(220, 50, 50, 0.92);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  z-index: 10;
+  animation: pulse 1.5s ease-in-out infinite;
+  backdrop-filter: blur(4px);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.75; }
+}
+
+/* ── Stats overlay ───────────────────────────────────────────────────────────── */
 .stats-overlay {
   position: absolute;
   bottom: 16px;
@@ -109,27 +135,12 @@
   gap: 24px;
 }
 
-.stat-label {
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  opacity: 0.55;
-}
+.stat-label { font-size: 0.7rem; letter-spacing: 0.12em; opacity: 0.55; }
+.stat-value { font-size: 1rem; font-weight: 700; color: #fff; }
+.stat-value.big { font-size: 1.8rem; }
+.stat-value.accent { color: #00ff88; }
 
-.stat-value {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-.stat-value.big {
-  font-size: 1.8rem;
-}
-
-.stat-value.accent {
-  color: #00ff88;
-}
-
-/* ── Start overlay (shown before camera starts) ──────────────────────────────── */
+/* ── Start overlay ───────────────────────────────────────────────────────────── */
 .start-overlay {
   position: absolute;
   inset: 0;
@@ -152,19 +163,19 @@
   letter-spacing: 0.05em;
   box-shadow: 0 0 24px rgba(0, 255, 136, 0.4);
   transition: opacity 0.15s;
+  touch-action: manipulation;
+  min-height: 56px;
 }
 
-.start-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.start-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* ── Controls row ────────────────────────────────────────────────────────────── */
+/* ── Controls ────────────────────────────────────────────────────────────────── */
 .controls {
   margin-top: 16px;
   display: flex;
   gap: 12px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -177,13 +188,22 @@
   font-size: 0.9rem;
   font-family: inherit;
   transition: border-color 0.15s;
+  touch-action: manipulation;
+  min-height: 44px;
 }
 
-.btn:hover {
-  border-color: #555;
+.btn:hover { border-color: #555; }
+.btn.active-btn { border-color: #00ff88; color: #00ff88; }
+.btn.danger { border-color: #ff4444; color: #ff9999; margin-top: 12px; }
+.btn.danger:hover { background: #2a0808; }
+
+.icon-btn {
+  padding: 8px 12px;
+  font-size: 1.2rem;
+  border-radius: 8px;
 }
 
-/* ── Hint text ───────────────────────────────────────────────────────────────── */
+/* ── Hint ────────────────────────────────────────────────────────────────────── */
 .hint {
   margin-top: 16px;
   font-size: 0.78rem;
@@ -192,6 +212,102 @@
   text-align: center;
   line-height: 1.6;
 }
+
+/* ── History modal ───────────────────────────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.modal {
+  background: #141414;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  touch-action: pan-y;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title { font-size: 1.2rem; font-weight: 700; }
+
+.modal-close {
+  background: none;
+  border: 1px solid #333;
+  color: #fff;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+.modal-empty { opacity: 0.5; font-size: 0.9rem; text-align: center; padding: 24px 0; }
+
+.chart-container { width: 100%; }
+
+/* ── Legend ──────────────────────────────────────────────────────────────────── */
+.legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.legend-item { display: flex; align-items: center; gap: 6px; }
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Session list ────────────────────────────────────────────────────────────── */
+.session-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.session-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  font-size: 0.82rem;
+}
+
+.session-exercise { font-weight: 700; text-transform: capitalize; }
+.session-reps { font-weight: 700; color: #fff; }
+.session-date { opacity: 0.45; font-size: 0.75rem; }
 
 /* ── Error page ──────────────────────────────────────────────────────────────── */
 .error-page {
@@ -214,4 +330,40 @@
   flex-direction: column;
   gap: 12px;
   line-height: 1.5;
+}
+
+/* ── Mobile responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .title { font-size: 1.5rem; }
+
+  .exercise-btn {
+    padding: 12px 14px;
+    font-size: 0.8rem;
+  }
+
+  .start-btn {
+    padding: 20px 40px;
+    font-size: 1.2rem;
+  }
+
+  .stats-overlay {
+    bottom: 8px;
+    left: 8px;
+    padding: 8px 12px;
+    min-width: 120px;
+  }
+
+  .stat-value.big { font-size: 1.4rem; }
+
+  .form-alert {
+    font-size: 0.75rem;
+    padding: 6px 14px;
+    max-width: 90%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .modal { padding: 16px; }
+  .session-row { flex-wrap: wrap; }
+  .session-date { width: 100%; }
 }
